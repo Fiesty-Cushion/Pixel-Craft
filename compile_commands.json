@@ -1,0 +1,7 @@
+[
+  {
+    "directory": "D:/Projects/GraphicsProject/pixel-craft",
+    "file": "src/main.cpp",
+    "command": "x86_64-w64-mingw32-g++ -MMD -MP -c -std=c++17 -I include src/main.cpp -o bin/main.o"
+  }
+]
