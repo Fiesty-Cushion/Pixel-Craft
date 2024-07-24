@@ -1,11 +1,11 @@
-#include "Globals.h"
 #include "Canvas.h"
+#include "BrushTool.h"
+#include "PencilTool.h"
 #include "RenderTexture.hpp"
-#include "Window.hpp"
+#include "ToolSelect.h"
 #include "raylib.h"
 
-
-Canvas::Canvas(raylib::Window* win): window(win) {}
+Canvas::Canvas(ToolSelect *ts) : toolSelect(ts) {}
 
 void Canvas::Init() {
   target = raylib::RenderTexture2D(GetScreenWidth(), GetScreenHeight());
@@ -16,35 +16,44 @@ void Canvas::Init() {
 }
 
 void Canvas::HandleEvents() {
-  // Change brush size
-  brushSize += GetMouseWheelMove()*5;
-  if (brushSize < 2) brushSize = 2;
-  if (brushSize > 50) brushSize = 50;
-
+  if (toolSelect->getSelectedTool() == nullptr)
+    return;
+  toolSelect->getSelectedTool()->HandleEvents();
 }
 
 void Canvas::Draw() {
-  if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) || (GetGestureDetected() == GESTURE_DRAG))
-  { 
-    // Paint circle into render texture
-    // NOTE: To avoid discontinuous circles, we could store
-    // previous-next mouse points and just draw a line using brush size
-    target.BeginMode();
-    if (mousePos.y > 50) DrawCircle((int)mousePos.x, (int)mousePos.y, brushSize, colors[colorSelected]);
-    target.EndMode();
+  if (toolSelect->getSelectedTool() == nullptr)
+    return;
+
+  target.BeginMode();
+  toolSelect->getSelectedTool()->Draw();
+  target.EndMode();
+
+  // Render texture must be y-flipped due to default OpenGL coordinates
+  DrawTextureRec(target.texture,
+                 (Rectangle){0, 0, (float)target.texture.width,
+                             (float)-target.texture.height},
+                 (Vector2){0, 0}, WHITE);
+
+  if (PencilTool *pencilToolPtr =
+          dynamic_cast<PencilTool *>(toolSelect->getSelectedTool())) {
+    if (mousePos.y > 50) {
+      if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+        DrawCircleLines((int)mousePos.x, (int)mousePos.y, 10.0f, GRAY);
+      else
+        DrawCircle(GetMouseX(), GetMouseY(), 10.0f, colors[colorSelected]);
+    }
+  } else if (BrushTool *brushToolPtr =
+                 dynamic_cast<BrushTool *>(toolSelect->getSelectedTool())) {
+    if (mousePos.y > 50) {
+      if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+        DrawCircleLines((int)mousePos.x, (int)mousePos.y,
+                        brushToolPtr->getBrushSize(), GRAY);
+      else
+        DrawCircle(GetMouseX(), GetMouseY(), brushToolPtr->getBrushSize(),
+                   colors[colorSelected]);
+    }
   }
-
-  // NOTE: Render texture must be y-flipped due to default OpenGL coordinates (left-bottom)
-  DrawTextureRec(target.texture, (Rectangle) { 0, 0, (float)target.texture.width, (float)-target.texture.height }, (Vector2) { 0, 0 }, WHITE);
-
-  // Draw drawing circle for reference
-  if (mousePos.y > 50)
-  {
-      if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) DrawCircleLines((int)mousePos.x, (int)mousePos.y, brushSize, GRAY);
-      else DrawCircle(GetMouseX(), GetMouseY(), brushSize, colors[colorSelected]);
-  } 
 }
 
-void Canvas::ShutDown() {
-  target.Unload();
-}
+void Canvas::ShutDown() { target.Unload(); }

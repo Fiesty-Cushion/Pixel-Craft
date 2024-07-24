@@ -19,11 +19,11 @@ void MainWindowGUI::Init() {
 
 
   colorsPanel = new ColorSelect(window); 
-  toolPanel = new ToolSelect(window);
-  canvas = new Canvas(window);
+  toolSelect = new ToolSelect(window);
+  canvas = new Canvas(toolSelect);
   
   colorsPanel->Init();
-  toolPanel->Init();
+  toolSelect->Init();
   canvas->Init();
 }
 
@@ -41,7 +41,7 @@ void MainWindowGUI::Draw() {
     window->ClearBackground(RAYWHITE);
     canvas->Draw();
     colorsPanel->Draw();
-    toolPanel->Draw();
+    toolSelect->Draw();
   }
   EndDrawing();
 }
@@ -49,9 +49,9 @@ void MainWindowGUI::Draw() {
 void MainWindowGUI::HandleEvents() {
   mousePos = GetMousePosition();
 
-  colorsPanel->HandleEvents();
-  toolPanel->HandleEvents();
   canvas->HandleEvents();
+  colorsPanel->HandleEvents();
+  toolSelect->HandleEvents();
 }
 
 void MainWindowGUI::ShutDown() {

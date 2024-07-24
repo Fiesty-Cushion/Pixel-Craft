@@ -1,17 +1,19 @@
 #pragma once
 
 #include "RenderTexture.hpp"
+#include "ToolSelect.h"
 #include "Window.hpp"
 
 
 class Canvas {
 private:
   raylib::Window* window;
-  float brushSize = 20.0f;
   raylib::RenderTexture2D target;
 
+  ToolSelect* toolSelect;
+
 public:
-  Canvas(raylib::Window* win);
+  Canvas(ToolSelect* ts);
   void Init();
   void Draw();
   void HandleEvents();

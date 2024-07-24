@@ -10,7 +10,7 @@ class MainWindowGUI {
   private:
     raylib::Window* window;
     ColorSelect* colorsPanel;
-    ToolSelect* toolPanel;
+    ToolSelect* toolSelect;
     Canvas* canvas;
 
   public:
