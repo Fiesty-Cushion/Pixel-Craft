@@ -4,16 +4,15 @@
 #include "ToolSelect.h"
 #include "Window.hpp"
 
-
 class Canvas {
 private:
-  raylib::Window* window;
+  raylib::Window *window;
   raylib::RenderTexture2D target;
 
-  ToolSelect* toolSelect;
+  ToolSelect *toolSelect;
 
 public:
-  Canvas(ToolSelect* ts);
+  Canvas(ToolSelect *ts);
   void Init();
   void Draw();
   void HandleEvents();

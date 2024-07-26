@@ -1,5 +1,6 @@
 #include "Canvas.h"
 #include "BrushTool.h"
+#include "Globals.h"
 #include "PencilTool.h"
 #include "RenderTexture.hpp"
 #include "ToolSelect.h"
@@ -30,29 +31,28 @@ void Canvas::Draw() {
   target.EndMode();
 
   // Render texture must be y-flipped due to default OpenGL coordinates
-  DrawTextureRec(target.texture,
-                 (Rectangle){0, 0, (float)target.texture.width,
-                             (float)-target.texture.height},
-                 (Vector2){0, 0}, WHITE);
+  DrawTextureRec(
+      target.texture,
+      {0, 0, (float)target.texture.width, (float)target.texture.height},
+      {0, 0}, WHITE);
 
+  // If Mouse is inside the Canvas, draw appropriate Mouse Indicator
+  if (mousePos.y < 50)
+    return;
   if (PencilTool *pencilToolPtr =
           dynamic_cast<PencilTool *>(toolSelect->getSelectedTool())) {
-    if (mousePos.y > 50) {
-      if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
-        DrawCircleLines((int)mousePos.x, (int)mousePos.y, 10.0f, GRAY);
-      else
-        DrawCircle(GetMouseX(), GetMouseY(), 10.0f, colors[colorSelected]);
-    }
+    if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+      DrawCircleLines((int)mousePos.x, (int)mousePos.y, 10.0f, GRAY);
+    else
+      DrawCircle(GetMouseX(), GetMouseY(), 10.0f, colors[colorSelected]);
   } else if (BrushTool *brushToolPtr =
                  dynamic_cast<BrushTool *>(toolSelect->getSelectedTool())) {
-    if (mousePos.y > 50) {
-      if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
-        DrawCircleLines((int)mousePos.x, (int)mousePos.y,
-                        brushToolPtr->getBrushSize(), GRAY);
-      else
-        DrawCircle(GetMouseX(), GetMouseY(), brushToolPtr->getBrushSize(),
-                   colors[colorSelected]);
-    }
+    if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+      DrawCircleLines((int)mousePos.x, (int)mousePos.y,
+                      brushToolPtr->getBrushSize(), GRAY);
+    else
+      DrawCircle(GetMouseX(), GetMouseY(), brushToolPtr->getBrushSize(),
+                 colors[colorSelected]);
   }
 }
 
