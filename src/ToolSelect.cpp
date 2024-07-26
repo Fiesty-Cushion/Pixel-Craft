@@ -1,7 +1,9 @@
 #include "ToolSelect.h"
 #include "BrushTool.h"
+#include "EraserTool.h"
 #include "Globals.h"
 #include "PencilTool.h"
+#include "RectangleTool.h"
 #include "Rectangle.hpp"
 #include "Window.hpp"
 #include "raygui.h"
@@ -57,6 +59,12 @@ void ToolSelect::selectTool(Tools tool) {
   case TOOL_BRUSH:
     currentTool = std::make_unique<BrushTool>();
     break;
+  case TOOL_ERASER:
+      currentTool = std::make_unique<EraserTool>();
+      break;
+  case TOOL_RECTANGLE:
+      currentTool = std::make_unique<RectangleTool>();
+      break;
   }
 }
 
