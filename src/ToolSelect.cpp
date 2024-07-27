@@ -23,7 +23,10 @@ void ToolSelect::Init() {
     toolBoxes[i].height = 40;
   }
 }
+raylib::Rectangle ToolSelect::ReturnIconBasedOnIndex(int n){
+  return toolBoxes[n];
 
+}
 void ToolSelect::HandleEvents() {
   for (int i = 0; i < TOOL_BOX_ICONS_COUNT; i++) {
     if (CheckCollisionPointRec(GetMousePosition(), toolBoxes[i]) &&

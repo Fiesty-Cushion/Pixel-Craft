@@ -1,6 +1,8 @@
 #include "Canvas.h"
 #include "BrushTool.h"
+#include "raygui.h"
 #include "Globals.h"
+#include "EraserTool.h"
 #include "PencilTool.h"
 #include "RenderTexture.hpp"
 #include "ToolSelect.h"
@@ -33,7 +35,7 @@ void Canvas::Draw() {
   // Render texture must be y-flipped due to default OpenGL coordinates
   DrawTextureRec(
       target.texture,
-      {0, 0, (float)target.texture.width, (float)target.texture.height},
+      {0, 0, (float)target.texture.width, -(float)target.texture.height},
       {0, 0}, WHITE);
 
   // If Mouse is inside the Canvas, draw appropriate Mouse Indicator
@@ -53,6 +55,10 @@ void Canvas::Draw() {
     else
       DrawCircle(GetMouseX(), GetMouseY(), brushToolPtr->getBrushSize(),
                  colors[colorSelected]);
+  }
+  else if(EraserTool* eraserToolPtr= dynamic_cast<EraserTool*>(toolSelect->getSelectedTool())){
+    // GuiDrawIcon(28,(GetMousePosition().x)-250,(GetMousePosition().y)-(eraserToolPtr->GetEraserSize())/2,5,GREEN);
+    DrawRectangleLinesEx({(float)GetMouseX(),(float)GetMouseY(),20,20},10.0f,RAYWHITE);
   }
 }
 

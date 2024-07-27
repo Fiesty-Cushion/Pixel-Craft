@@ -11,6 +11,7 @@
 
 class ToolSelect {
 public:
+  raylib::Rectangle ReturnIconBasedOnIndex(int n);
   ToolSelect(raylib::Window* win);
   void Init();
   void Draw();
