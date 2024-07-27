@@ -1,11 +1,13 @@
 #include "Canvas.h"
 #include "BrushTool.h"
 #include "raygui.h"
+#include "CircleTool.h"
 #include "Globals.h"
 #include "EraserTool.h"
 #include "PencilTool.h"
 #include "RenderTexture.hpp"
 #include "ToolSelect.h"
+#include "Vector2.hpp"
 #include "raylib.h"
 
 Canvas::Canvas(ToolSelect *ts) : toolSelect(ts) {}
@@ -55,10 +57,9 @@ void Canvas::Draw() {
     else
       DrawCircle(GetMouseX(), GetMouseY(), brushToolPtr->getBrushSize(),
                  colors[colorSelected]);
-  }
-  else if(EraserTool* eraserToolPtr= dynamic_cast<EraserTool*>(toolSelect->getSelectedTool())){
-    // GuiDrawIcon(28,(GetMousePosition().x)-250,(GetMousePosition().y)-(eraserToolPtr->GetEraserSize())/2,5,GREEN);
-    DrawRectangleLinesEx({(float)GetMouseX(),(float)GetMouseY(),20,20},10.0f,RAYWHITE);
+  } else if (CircleTool *circleToolPtr =
+                 dynamic_cast<CircleTool *>(toolSelect->getSelectedTool())) {
+    DrawCircleLinesV(circleToolPtr->getCenter(), circleToolPtr->getRadius(), colors[colorSelected]);
   }
 }
 
