@@ -1,35 +1,43 @@
 #pragma once
 #include "Globals.h"
 #include "raylib.h"
+#include "ToolSelect.h"
 #include "Tool.h"
 
 
 
 class EraserTool: public Tool {
   private: 
- int brushSize;
+ int  eraserSize;
+ 
 public:
-  EraserTool(){
-    brushSize= 20.0f;
-  }
-int IncreaseBrushSize(){
 
-  return brushSize*3;
-}
-int GetBrushSize(){
-  return brushSize;
+  EraserTool(){
+     eraserSize= 20.0f;
+  }
+
+int GetEraserSize(){
+  return  eraserSize;
 };
   void Draw() override {
     if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || (GetGestureDetected()==GESTURE_DRAG))
     if(mousePos.y>50){
-      DrawCircle(mousePos.x,mousePos.y,brushSize,RAYWHITE);
+      // DrawCircle(mousePos.x,mousePos.y, eraserSize,RAYWHITE);
+      DrawRectangle(mousePos.x,mousePos.y,eraserSize,eraserSize,RAYWHITE);
     }
 
   }
   void HandleEvents() override {
-    if(GetGestureDetected()==GESTURE_PINCH_OUT){
-     IncreaseBrushSize();
-      
+  eraserSize += GetMouseWheelMove() * 5;
+    if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
+        
+
     };
+    
+    // if(GetGestureDetected()==GESTURE_PINCH_OUT){
+    //  DrawText("hello",150,150,12,BLUE);
+    //  IncreaseEraserSize();
+      
+   
   }
 };
