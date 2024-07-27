@@ -4,21 +4,25 @@
 #include "Tool.h"
 #include "raylib.h"
 
-class BrushTool : public Tool {
+class BrushTool : public Tool
+{
 private:
   float brushSize = 20.0f;
 
 public:
-  void Draw() override {
+  void Draw() override
+  {
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) ||
-        (GetGestureDetected() == GESTURE_DRAG)) {
+        (GetGestureDetected() == GESTURE_DRAG))
+    {
       if (mousePos.y > 50)
         DrawCircle((int)mousePos.x, (int)mousePos.y, brushSize,
                    colors[colorSelected]);
     }
   }
 
-  void HandleEvents() override {
+  void HandleEvents() override
+  {
     // Change brush size
     brushSize += GetMouseWheelMove() * 5;
     if (brushSize < 2)

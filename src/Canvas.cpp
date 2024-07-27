@@ -12,7 +12,8 @@
 
 Canvas::Canvas(ToolSelect *ts) : toolSelect(ts) {}
 
-void Canvas::Init() {
+void Canvas::Init()
+{
   target = raylib::RenderTexture2D(GetScreenWidth(), GetScreenHeight());
 
   target.BeginMode();
@@ -20,13 +21,15 @@ void Canvas::Init() {
   target.EndMode();
 }
 
-void Canvas::HandleEvents() {
+void Canvas::HandleEvents()
+{
   if (toolSelect->getSelectedTool() == nullptr)
     return;
   toolSelect->getSelectedTool()->HandleEvents();
 }
 
-void Canvas::Draw() {
+void Canvas::Draw()
+{
   if (toolSelect->getSelectedTool() == nullptr)
     return;
 
@@ -44,21 +47,26 @@ void Canvas::Draw() {
   if (mousePos.y < 50)
     return;
   if (PencilTool *pencilToolPtr =
-          dynamic_cast<PencilTool *>(toolSelect->getSelectedTool())) {
+          dynamic_cast<PencilTool *>(toolSelect->getSelectedTool()))
+  {
     if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
       DrawCircleLines((int)mousePos.x, (int)mousePos.y, 10.0f, GRAY);
     else
       DrawCircle(GetMouseX(), GetMouseY(), 10.0f, colors[colorSelected]);
-  } else if (BrushTool *brushToolPtr =
-                 dynamic_cast<BrushTool *>(toolSelect->getSelectedTool())) {
+  }
+  else if (BrushTool *brushToolPtr =
+               dynamic_cast<BrushTool *>(toolSelect->getSelectedTool()))
+  {
     if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
       DrawCircleLines((int)mousePos.x, (int)mousePos.y,
                       brushToolPtr->getBrushSize(), GRAY);
     else
       DrawCircle(GetMouseX(), GetMouseY(), brushToolPtr->getBrushSize(),
                  colors[colorSelected]);
-  } else if (CircleTool *circleToolPtr =
-                 dynamic_cast<CircleTool *>(toolSelect->getSelectedTool())) {
+  }
+  else if (CircleTool *circleToolPtr =
+               dynamic_cast<CircleTool *>(toolSelect->getSelectedTool()))
+  {
     DrawCircleLinesV(circleToolPtr->getCenter(), circleToolPtr->getRadius(), colors[colorSelected]);
   }
 }
