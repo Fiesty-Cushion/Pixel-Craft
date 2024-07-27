@@ -1,5 +1,6 @@
 #include "ToolSelect.h"
 #include "BrushTool.h"
+#include "CircleTool.h"
 #include "Globals.h"
 #include "PencilTool.h"
 #include "Rectangle.hpp"
@@ -48,6 +49,7 @@ void ToolSelect::Draw() {
 }
 
 void ToolSelect::selectTool(Tools tool) {
+  std::cout << "Debug: Selecting Tool - " << tool << static_cast<Tools>(3) << std::endl;
   selectedTool = tool;
   switch (tool) {
   case TOOL_PENCIL:
@@ -56,6 +58,10 @@ void ToolSelect::selectTool(Tools tool) {
 
   case TOOL_BRUSH:
     currentTool = std::make_unique<BrushTool>();
+    break;
+
+  case TOOL_CIRCLE:
+    currentTool = std::make_unique<CircleTool>();
     break;
   }
 }

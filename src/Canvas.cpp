@@ -1,9 +1,11 @@
 #include "Canvas.h"
 #include "BrushTool.h"
+#include "CircleTool.h"
 #include "Globals.h"
 #include "PencilTool.h"
 #include "RenderTexture.hpp"
 #include "ToolSelect.h"
+#include "Vector2.hpp"
 #include "raylib.h"
 
 Canvas::Canvas(ToolSelect *ts) : toolSelect(ts) {}
@@ -33,7 +35,7 @@ void Canvas::Draw() {
   // Render texture must be y-flipped due to default OpenGL coordinates
   DrawTextureRec(
       target.texture,
-      {0, 0, (float)target.texture.width, (float)target.texture.height},
+      {0, 0, (float)target.texture.width, -(float)target.texture.height},
       {0, 0}, WHITE);
 
   // If Mouse is inside the Canvas, draw appropriate Mouse Indicator
@@ -53,6 +55,9 @@ void Canvas::Draw() {
     else
       DrawCircle(GetMouseX(), GetMouseY(), brushToolPtr->getBrushSize(),
                  colors[colorSelected]);
+  } else if (CircleTool *circleToolPtr =
+                 dynamic_cast<CircleTool *>(toolSelect->getSelectedTool())) {
+    DrawCircleLinesV(circleToolPtr->getCenter(), circleToolPtr->getRadius(), colors[colorSelected]);
   }
 }
 
