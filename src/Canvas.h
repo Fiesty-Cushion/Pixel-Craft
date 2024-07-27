@@ -4,7 +4,8 @@
 #include "ToolSelect.h"
 #include "Window.hpp"
 
-class Canvas {
+class Canvas
+{
 private:
   raylib::Window *window;
   raylib::RenderTexture2D target;

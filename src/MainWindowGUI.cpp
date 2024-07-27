@@ -6,35 +6,38 @@
 #include "raygui.h"
 #include "Globals.h"
 
-void MainWindowGUI::Init() {
+void MainWindowGUI::Init()
+{
   const int screenWidth = 1200;
   const int screenHeight = 720;
 
-  window = new raylib::Window(screenWidth, screenHeight, "Pixel-Craft"); 
+  window = new raylib::Window(screenWidth, screenHeight, "Pixel-Craft");
   SetTargetFPS(120);
 
   GuiLoadIcons("./res/iconset.rgi", 0);
   GuiLoadStyle("./res/Bluish.rgs");
   GuiSetIconScale(2);
 
-
-  colorsPanel = new ColorSelect(window); 
+  colorsPanel = new ColorSelect(window);
   toolSelect = new ToolSelect(window);
   canvas = new Canvas(toolSelect);
-  
+
   colorsPanel->Init();
   toolSelect->Init();
   canvas->Init();
 }
 
-void MainWindowGUI::StartLoop() {
-  while(!window->ShouldClose()) {
+void MainWindowGUI::StartLoop()
+{
+  while (!window->ShouldClose())
+  {
     HandleEvents();
     Draw();
   }
 }
 
-void MainWindowGUI::Draw() {
+void MainWindowGUI::Draw()
+{
   BeginDrawing();
 
   {
@@ -46,7 +49,8 @@ void MainWindowGUI::Draw() {
   EndDrawing();
 }
 
-void MainWindowGUI::HandleEvents() {
+void MainWindowGUI::HandleEvents()
+{
   mousePos = GetMousePosition();
 
   canvas->HandleEvents();
@@ -54,7 +58,8 @@ void MainWindowGUI::HandleEvents() {
   toolSelect->HandleEvents();
 }
 
-void MainWindowGUI::ShutDown() {
-  canvas->ShutDown();  
+void MainWindowGUI::ShutDown()
+{
+  canvas->ShutDown();
   delete window;
 }

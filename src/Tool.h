@@ -1,6 +1,7 @@
 #pragma once
 
-class Tool {
+class Tool
+{
 public:
   virtual void Draw() = 0;
   virtual void HandleEvents() = 0;
