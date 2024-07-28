@@ -1,7 +1,6 @@
 #pragma once
 #include "Globals.h"
 #include "Tool.h"
-#include "ToolSelect.h"
 #include "raylib.h"
 
 class EraserTool : public Tool {
@@ -16,18 +15,22 @@ public:
     int GetEraserSize() {
         return eraserSize;
     };
+
     void Draw() override {
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) ||
             (GetGestureDetected() == GESTURE_DRAG))
             if (mousePos.y > 50) {
-                // DrawCircle(mousePos.x,mousePos.y, eraserSize,RAYWHITE);
-                DrawRectangle(mousePos.x, mousePos.y, eraserSize, eraserSize,
-                              RAYWHITE);
+                DrawRectangle(mousePos.x - (float)eraserSize / 2,
+                              mousePos.y - (float)eraserSize / 2, eraserSize,
+                              eraserSize, RAYWHITE);
             }
     }
+
     void HandleEvents() override {
         eraserSize += GetMouseWheelMove() * 5;
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        };
+        if (eraserSize < 20.0f)
+            eraserSize = 20.0f;
+        if (eraserSize > 80.0f)
+            eraserSize = 80.0f;
     }
 };
