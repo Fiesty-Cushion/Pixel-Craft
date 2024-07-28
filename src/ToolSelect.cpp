@@ -80,6 +80,8 @@ void ToolSelect::selectTool(Tools tool)
   case TOOL_RECTANGLE:
     currentTool = std::make_unique<RectangleTool>();
     break;
+  case TOOL_CIRCLE:
+    currentTool = std::make_unique<CircleTool>();
   }
 }
 

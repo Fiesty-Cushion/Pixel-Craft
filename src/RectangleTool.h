@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include "stdlib.h"
 #include "raylib.h"
 #include "Globals.h"
 #include "Tool.h"
@@ -21,29 +23,38 @@ public:
   }
   void Draw() override
   {
+    if (GetMouseY() < 50 && GetMouseX() < 140)
+      return;
 
-    if (isMouseDraged)
+    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
     {
-      // if(GetGestureDetected==)
+
+      if (startPos.x > endPos.x || startPos.y > endPos.y)
+      {
+        DrawRectangleLines(endPos.x, endPos.y, abs(endPos.x - startPos.x), abs(endPos.y - startPos.y), colors[colorSelected]);
+      }
+      else
+      {
+        DrawRectangleLines(startPos.x, startPos.y, abs(endPos.x - startPos.x), abs(endPos.y - startPos.y), colors[colorSelected]);
+      }
     }
   }
-
-  //   SetMousePos(mousePos);
-  // // DrawRectangle(150,150,100,100,BLACK);
-  // DrawText("TExtt aayo hai",150,150,12,BLACK);
-  // // if(mousePos.y >50){
-  //  DrawRectangleLines(tempMousePos.x,tempMousePos.y,(tempMousePos.x-GetMousePosition().x),(tempMousePos.y-GetMousePosition().y),colors[colorSelected]);
 
   void HandleEvents() override
   {
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
+      isMouseDraged = true;
+
       startPos = GetMousePosition();
-      if (GetGestureDetected() == GESTURE_DRAG)
-      {
-        isMouseDraged = true;
-        endPos = GetMousePosition();
-      }
+    }
+    if (isMouseDraged && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    {
+
+      endPos = GetMousePosition();
+    }
+    else if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
       isMouseDraged = false;
     }
   }

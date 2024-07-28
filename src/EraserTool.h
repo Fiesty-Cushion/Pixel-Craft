@@ -34,9 +34,5 @@ public:
     if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
     {
     };
-
-    // if(GetGestureDetected()==GESTURE_PINCH_OUT){
-    //  DrawText("hello",150,150,12,BLUE);
-    //  IncreaseEraserSize();
   }
 };
