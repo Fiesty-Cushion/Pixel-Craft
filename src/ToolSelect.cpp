@@ -1,4 +1,5 @@
 #include "ToolSelect.h"
+#include "HypnotiserTool.h"
 #include "BrushTool.h"
 #include "EraserTool.h"
 #include "CircleTool.h"
@@ -82,6 +83,9 @@ void ToolSelect::selectTool(Tools tool)
     break;
   case TOOL_CIRCLE:
     currentTool = std::make_unique<CircleTool>();
+    break;
+  //  case TOOL_HYPNOTISER:
+  //    currentTool = std::make_unique <HypnotiserTool>();
   }
 }
 
