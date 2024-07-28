@@ -6,7 +6,8 @@
 #include "raylib.h"
 #include <cmath>
 
-class CircleTool : public Tool {
+class CircleTool : public Tool
+{
 private:
   bool isDragging = false;
   raylib::Vector2 initialPosition;
@@ -18,29 +19,37 @@ public:
 
   float getRadius() { return radius; }
 
-  void Draw() override {
+  void Draw() override
+  {
     if (GetMouseX() < 140 || GetMouseY() < 50)
       return;
 
-    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-      DrawCircleLinesV(this->initialPosition,
+    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+    {
+      // DrawCircle(50,50,30,PINK);
+      DrawCircleLinesV(getCenter(),
                        finalPosition.Distance(this->initialPosition), colors[colorSelected]);
     }
   }
 
-  void HandleEvents() override {
+  void HandleEvents() override
+  {
     if (GetMouseY() < 50 && GetMouseX() < 140)
       return;
 
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+    {
       isDragging = true;
       initialPosition = GetMousePosition();
     }
 
-    if (isDragging && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+    if (isDragging && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+    {
       finalPosition = GetMousePosition();
       radius = finalPosition.Distance(this->initialPosition);
-    } else if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+    }
+    else if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
+    {
       isDragging = false;
     }
   }
