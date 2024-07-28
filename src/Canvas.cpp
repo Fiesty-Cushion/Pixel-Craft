@@ -2,6 +2,7 @@
 
 #include "BrushTool.h"
 #include "CircleTool.h"
+#include "CurveTool.h"
 #include "EraserTool.h"
 #include "Globals.h"
 #include "PencilTool.h"
@@ -83,6 +84,17 @@ void Canvas::Draw() {
             rectangleToolPtr->getRect().x, rectangleToolPtr->getRect().y,
             rectangleToolPtr->getRect().width,
             rectangleToolPtr->getRect().height, colors[colorSelected]);
+    } else if (CurveTool *curveToolPtr =
+                   dynamic_cast<CurveTool *>(toolSelect->getSelectedTool())) {
+        if (curveToolPtr->getEnterKeyStatus())
+            return;
+        for (const auto &point : curveToolPtr->getControlPoints()) {
+            DrawCircle(point.x, point.y, 8.0f, RED);
+        }
+
+        for (const auto &point : curveToolPtr->getCurvePoints()) {
+            DrawPixelV(point, colors[colorSelected]);
+        }
     }
 }
 

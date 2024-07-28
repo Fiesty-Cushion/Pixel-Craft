@@ -5,6 +5,7 @@
 
 #include "BrushTool.h"
 #include "CircleTool.h"
+#include "CurveTool.h"
 #include "EraserTool.h"
 #include "Globals.h"
 #include "PencilTool.h"
@@ -75,6 +76,10 @@ void ToolSelect::selectTool(Tools tool) {
             break;
         case TOOL_CIRCLE:
             currentTool = std::make_unique<CircleTool>();
+            break;
+        case TOOL_CURVE:
+            currentTool = std::make_unique<CurveTool>();
+            break;
     }
 }
 
