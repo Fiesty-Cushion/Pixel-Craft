@@ -2,7 +2,8 @@
 #include "MainWindowGUI.h"
 #include "raygui.h"
 
-int main() {
+int main()
+{
   MainWindowGUI mGUI;
   mGUI.Init();
   mGUI.StartLoop();
