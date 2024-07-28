@@ -4,13 +4,11 @@
 #include <memory>
 
 #include "BrushTool.h"
-#include "EraserTool.h"
 #include "CircleTool.h"
 #include "CurveTool.h"
 #include "EraserTool.h"
 #include "Globals.h"
 #include "PencilTool.h"
-#include "RectangleTool.h"
 #include "Rectangle.hpp"
 #include "RectangleTool.h"
 #include "Window.hpp"

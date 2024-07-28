@@ -4,8 +4,7 @@
 #include "Tool.h"
 #include "raylib.h"
 
-class BrushTool : public Tool
-{
+class BrushTool : public Tool {
 private:
     float brushSize = 20.0f;
 

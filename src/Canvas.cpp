@@ -1,12 +1,10 @@
 #include "Canvas.h"
 
 #include "BrushTool.h"
-#include "raygui.h"
 #include "CircleTool.h"
 #include "CurveTool.h"
 #include "EraserTool.h"
 #include "Globals.h"
-#include "EraserTool.h"
 #include "PencilTool.h"
 #include "RectangleTool.h"
 #include "RenderTexture.hpp"

@@ -26,7 +26,8 @@
 //     {
 //       // DrawCircle(50,50,30,PINK);
 //       // DrawCircleLinesV(getCenter(),
-//       //                  finalPosition.Distance(this->initialPosition), colors[colorSelected]);
+//       //                  finalPosition.Distance(this->initialPosition),
+//       colors[colorSelected]);
 //     }
 //   }
 
