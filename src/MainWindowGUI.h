@@ -5,18 +5,17 @@
 #include "ToolSelect.h"
 #include "Window.hpp"
 
-class MainWindowGUI
-{
+class MainWindowGUI {
 private:
-  raylib::Window *window;
-  ColorSelect *colorsPanel;
-  ToolSelect *toolSelect;
-  Canvas *canvas;
+    raylib::Window *window;
+    ColorSelect *colorsPanel;
+    ToolSelect *toolSelect;
+    Canvas *canvas;
 
 public:
-  void Init();
-  void StartLoop();
-  void Draw();
-  void HandleEvents();
-  void ShutDown();
+    void Init();
+    void StartLoop();
+    void Draw();
+    void HandleEvents();
+    void ShutDown();
 };

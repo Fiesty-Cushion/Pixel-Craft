@@ -1,61 +1,52 @@
 #pragma once
 #include <iostream>
-#include "stdlib.h"
-#include "raylib.h"
+
 #include "Globals.h"
 #include "Tool.h"
+#include "raylib.h"
+#include "stdlib.h"
 
-class RectangleTool : public Tool
-{
+class RectangleTool : public Tool {
 private:
-  raylib::Vector2 rectSize;
-  bool isMouseDraged = false;
+    raylib::Vector2 rectSize;
+    bool isMouseDraged = false;
 
-  raylib::Vector2 startPos = {0, 0};
-  raylib::Vector2 endPos = {0, 0};
-  raylib::Vector2 tempMousePos;
+    raylib::Vector2 startPos = {0, 0};
+    raylib::Vector2 endPos = {0, 0};
+    raylib::Vector2 tempMousePos;
 
 public:
-  void SetMousePos(raylib::Vector2 pos)
-  {
-    tempMousePos.x = pos.x;
-    tempMousePos.y = pos.y;
-  }
-  void Draw() override
-  {
-    if (GetMouseY() < 50 && GetMouseX() < 140)
-      return;
-
-    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-    {
-
-      if (startPos.x > endPos.x || startPos.y > endPos.y)
-      {
-        DrawRectangleLines(endPos.x, endPos.y, abs(endPos.x - startPos.x), abs(endPos.y - startPos.y), colors[colorSelected]);
-      }
-      else
-      {
-        DrawRectangleLines(startPos.x, startPos.y, abs(endPos.x - startPos.x), abs(endPos.y - startPos.y), colors[colorSelected]);
-      }
+    void SetMousePos(raylib::Vector2 pos) {
+        tempMousePos.x = pos.x;
+        tempMousePos.y = pos.y;
     }
-  }
+    void Draw() override {
+        if (GetMouseY() < 50 && GetMouseX() < 140)
+            return;
 
-  void HandleEvents() override
-  {
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-    {
-      isMouseDraged = true;
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+            if (startPos.x > endPos.x || startPos.y > endPos.y) {
+                DrawRectangleLines(
+                    endPos.x, endPos.y, abs(endPos.x - startPos.x),
+                    abs(endPos.y - startPos.y), colors[colorSelected]);
+            } else {
+                DrawRectangleLines(
+                    startPos.x, startPos.y, abs(endPos.x - startPos.x),
+                    abs(endPos.y - startPos.y), colors[colorSelected]);
+            }
+        }
+    }
 
-      startPos = GetMousePosition();
-    }
-    if (isMouseDraged && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-    {
+    void HandleEvents() override {
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            isMouseDraged = true;
 
-      endPos = GetMousePosition();
+            startPos = GetMousePosition();
+        }
+        if (isMouseDraged && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            endPos = GetMousePosition();
+        } else if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            isMouseDraged = false;
+        }
     }
-    else if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-    {
-      isMouseDraged = false;
-    }
-  }
 };

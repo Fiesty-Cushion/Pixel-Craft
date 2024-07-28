@@ -2,9 +2,10 @@
 
 #include "Tool.h"
 
-class LineTool : public Tool
-{
+class LineTool : public Tool {
 public:
-  void Draw() override {}
-  void HandleEvents() override {}
+    void Draw() override {
+    }
+    void HandleEvents() override {
+    }
 };

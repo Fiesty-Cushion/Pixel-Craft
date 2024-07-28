@@ -1,4 +1,5 @@
 #include "Globals.h"
+
 #include "Color.hpp"
 #include "Image.hpp"
 #include "Vector2.hpp"
