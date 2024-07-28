@@ -4,8 +4,7 @@
 #include "Tool.h"
 #include "raylib.h"
 
-class PencilTool : public Tool
-{
+class PencilTool : public Tool {
 public:
     void Draw() override {
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) ||
