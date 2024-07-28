@@ -35,6 +35,7 @@ public:
     TOOL_ELLIPSE,
     TOOL_TRIANGLE,
     TOOL_COLOR_PALETTE,
+    TOOL_HYPNOTISER
   };
 
   void selectTool(Tools tool);

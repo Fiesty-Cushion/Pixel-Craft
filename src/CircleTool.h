@@ -1,5 +1,5 @@
 #pragma once
-
+#include "iostream"
 #include "Globals.h"
 #include "Tool.h"
 #include "Vector2.hpp"
@@ -9,12 +9,47 @@
 class CircleTool : public Tool
 {
 private:
+  float posX;
+  float posY;
   bool isDragging = false;
   raylib::Vector2 initialPosition;
   raylib::Vector2 finalPosition;
   float radius;
 
 public:
+  void DrawCircleMid(raylib::Vector2 center, raylib::Color color)
+  {
+    posX = GetMouseX();
+    posY = GetMouseY() + radius;
+    float decisionParameter = 5 / 4 - radius;
+    float nextDecisionParameter;
+    // DrawPixel(posX, posY, color);
+    for (int i = 0; i <= 7; i++)
+    {
+      if (decisionParameter < 0)
+      {
+        posX = posX + 1;
+
+        DrawPixel(posX, posY, color);
+        DrawPixel(-posX, posY, color);
+        DrawPixel(posX, -posY, color);
+        DrawPixel(-posX, -posY, color);
+        decisionParameter = decisionParameter + 2 * (posX) + 1;
+      }
+      else if (decisionParameter >= 0)
+      {
+        posX = posX + 1;
+        posY = posY - 1;
+
+        DrawPixel(posX, posY, color);
+        DrawPixel(-posX, posY, color);
+        DrawPixel(posX, -posY, color);
+        DrawPixel(-posX, -posY, color);
+        decisionParameter = decisionParameter + 2 * (posX)-2 * posY + 1;
+      }
+    }
+  };
+
   raylib::Vector2 getCenter() { return initialPosition; }
 
   float getRadius() { return radius; }
@@ -26,9 +61,12 @@ public:
 
     if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
     {
+      // DrawCircleMid(posX, posY)
+
+      // DrawPixel(posX,posY,colors[colorSelected]);
       // DrawCircle(50,50,30,PINK);
-      DrawCircleLinesV(getCenter(),
-                       finalPosition.Distance(this->initialPosition), colors[colorSelected]);
+      //  DrawCircleLinesV(getCenter(),
+      //              finalPosition.Distance(this->initialPosition), colors[colorSelected]);
     }
   }
 
