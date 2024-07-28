@@ -1,20 +1,21 @@
 #pragma once
+
+#include <cmath>
 #include "iostream"
 #include "Globals.h"
 #include "Tool.h"
 #include "Vector2.hpp"
 #include "raylib.h"
-#include <cmath>
 
 class CircleTool : public Tool
 {
 private:
   float posX;
   float posY;
-  bool isDragging = false;
-  raylib::Vector2 initialPosition;
-  raylib::Vector2 finalPosition;
-  float radius;
+    bool isDragging = false;
+    raylib::Vector2 initialPosition;
+    raylib::Vector2 finalPosition;
+    float radius;
 
 public:
   void DrawCircleMid(raylib::Vector2 center, raylib::Color color)
@@ -50,14 +51,17 @@ public:
     }
   };
 
-  raylib::Vector2 getCenter() { return initialPosition; }
+    raylib::Vector2 getCenter() {
+        return initialPosition;
+    }
 
-  float getRadius() { return radius; }
+    float getRadius() {
+        return radius;
+    }
 
-  void Draw() override
-  {
-    if (GetMouseX() < 140 || GetMouseY() < 50)
-      return;
+    void Draw() override {
+        if (GetMouseX() < 140 || GetMouseY() < 50)
+            return;
 
     if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
     {
@@ -70,25 +74,20 @@ public:
     }
   }
 
-  void HandleEvents() override
-  {
-    if (GetMouseY() < 50 && GetMouseX() < 140)
-      return;
+    void HandleEvents() override {
+        if (GetMouseY() < 50 && GetMouseX() < 140)
+            return;
 
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-    {
-      isDragging = true;
-      initialPosition = GetMousePosition();
-    }
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            isDragging = true;
+            initialPosition = GetMousePosition();
+        }
 
-    if (isDragging && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
-    {
-      finalPosition = GetMousePosition();
-      radius = finalPosition.Distance(this->initialPosition);
+        if (isDragging && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            finalPosition = GetMousePosition();
+            radius = finalPosition.Distance(this->initialPosition);
+        } else if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+            isDragging = false;
+        }
     }
-    else if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
-    {
-      isDragging = false;
-    }
-  }
 };

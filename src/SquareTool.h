@@ -2,9 +2,10 @@
 
 #include "Tool.h"
 
-class SquareTool : public Tool
-{
+class SquareTool : public Tool {
 public:
-  void Draw() override {}
-  void HandleEvents() override {}
+    void Draw() override {
+    }
+    void HandleEvents() override {
+    }
 };

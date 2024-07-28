@@ -9,3 +9,5 @@
 extern raylib::Vector2 mousePos;
 extern raylib::Color colors[MAX_COLORS_COUNT];
 extern int colorSelected;
+
+long nCr(int n, int r);
