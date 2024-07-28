@@ -5,6 +5,7 @@
 #include "EraserTool.h"
 #include "Globals.h"
 #include "PencilTool.h"
+#include "RectangleTool.h"
 #include "RenderTexture.hpp"
 #include "ToolSelect.h"
 #include "Vector2.hpp"
@@ -63,11 +64,25 @@ void Canvas::Draw() {
                    dynamic_cast<CircleTool *>(toolSelect->getSelectedTool())) {
         DrawCircleLinesV(circleToolPtr->getCenter(), circleToolPtr->getRadius(),
                          colors[colorSelected]);
-    } else if (EraserTool *eraserTool =
+    } else if (EraserTool *eraserToolPtr =
                    dynamic_cast<EraserTool *>(toolSelect->getSelectedTool())) {
-        DrawRectangle((float)GetMouseX(), (float)GetMouseY(),
-                      (float)eraserTool->GetEraserSize(),
-                      (float)eraserTool->GetEraserSize(), WHITE);
+        DrawRectangleLinesEx(
+            {(float)GetMouseX() - (float)eraserToolPtr->GetEraserSize() / 2 - 2,
+             (float)GetMouseY() - (float)eraserToolPtr->GetEraserSize() / 2 - 2,
+             (float)eraserToolPtr->GetEraserSize() + 4,
+             (float)eraserToolPtr->GetEraserSize() + 4},
+            2.0f, GRAY);
+        DrawRectangle(
+            (float)GetMouseX() - (float)eraserToolPtr->GetEraserSize() / 2,
+            (float)GetMouseY() - (float)eraserToolPtr->GetEraserSize() / 2,
+            (float)eraserToolPtr->GetEraserSize(),
+            (float)eraserToolPtr->GetEraserSize(), WHITE);
+    } else if (RectangleTool *rectangleToolPtr = dynamic_cast<RectangleTool *>(
+                   toolSelect->getSelectedTool())) {
+        DrawRectangleLines(
+            rectangleToolPtr->getRect().x, rectangleToolPtr->getRect().y,
+            rectangleToolPtr->getRect().width,
+            rectangleToolPtr->getRect().height, colors[colorSelected]);
     }
 }
 

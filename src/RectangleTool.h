@@ -1,7 +1,5 @@
-#pragma once
-#include <iostream>
-
 #include "Globals.h"
+#include "Rectangle.hpp"
 #include "Tool.h"
 #include "raylib.h"
 #include "stdlib.h"
@@ -16,36 +14,47 @@ private:
     raylib::Vector2 tempMousePos;
 
 public:
-    void SetMousePos(raylib::Vector2 pos) {
-        tempMousePos.x = pos.x;
-        tempMousePos.y = pos.y;
+    raylib::Rectangle getRect() {
+        if (startPos.x < endPos.x && startPos.y > endPos.y) {
+            return raylib::Rectangle(startPos.x, endPos.y,
+                                     abs(endPos.x - startPos.x),
+                                     abs(endPos.y - startPos.y));
+        } else if (startPos.x < endPos.x && startPos.y < endPos.y) {
+            return raylib::Rectangle(startPos.x, startPos.y,
+                                     abs(endPos.x - startPos.x),
+                                     abs(endPos.y - startPos.y));
+        } else if (startPos.x > endPos.x && startPos.y < endPos.y) {
+            return raylib::Rectangle(endPos.x, startPos.y,
+                                     abs(endPos.x - startPos.x),
+                                     abs(endPos.y - startPos.y));
+
+        } else {
+            return raylib::Rectangle(endPos.x, endPos.y,
+                                     abs(endPos.x - startPos.x),
+                                     abs(endPos.y - startPos.y));
+        }
     }
+
     void Draw() override {
         if (GetMouseY() < 50 && GetMouseX() < 140)
             return;
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-            if (startPos.x > endPos.x || startPos.y > endPos.y) {
-                DrawRectangleLines(
-                    endPos.x, endPos.y, abs(endPos.x - startPos.x),
-                    abs(endPos.y - startPos.y), colors[colorSelected]);
-            } else {
-                DrawRectangleLines(
-                    startPos.x, startPos.y, abs(endPos.x - startPos.x),
-                    abs(endPos.y - startPos.y), colors[colorSelected]);
-            }
+            raylib::Rectangle rect = getRect();
+            DrawRectangleLines(rect.x, rect.y, rect.width, rect.height,
+                               colors[colorSelected]);
         }
     }
 
     void HandleEvents() override {
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             isMouseDraged = true;
-
             startPos = GetMousePosition();
         }
+
         if (isMouseDraged && IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             endPos = GetMousePosition();
-        } else if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        } else if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
             isMouseDraged = false;
         }
     }
