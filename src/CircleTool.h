@@ -26,7 +26,8 @@ public:
 
     if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
     {
-      DrawCircleLinesV(this->initialPosition,
+      // DrawCircle(50,50,30,PINK);
+      DrawCircleLinesV(getCenter(),
                        finalPosition.Distance(this->initialPosition), colors[colorSelected]);
     }
   }

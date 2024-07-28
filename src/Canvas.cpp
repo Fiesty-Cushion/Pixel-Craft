@@ -69,6 +69,10 @@ void Canvas::Draw()
   {
     DrawCircleLinesV(circleToolPtr->getCenter(), circleToolPtr->getRadius(), colors[colorSelected]);
   }
+  else if (EraserTool *eraserTool = dynamic_cast<EraserTool *>(toolSelect->getSelectedTool()))
+  {
+    DrawRectangle((float)GetMouseX(), (float)GetMouseY(), (float)eraserTool->GetEraserSize(), (float)eraserTool->GetEraserSize(), WHITE);
+  }
 }
 
 void Canvas::ShutDown() { target.Unload(); }
