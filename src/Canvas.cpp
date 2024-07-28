@@ -63,8 +63,11 @@ void Canvas::Draw() {
                        colors[colorSelected]);
     } else if (CircleTool *circleToolPtr =
                    dynamic_cast<CircleTool *>(toolSelect->getSelectedTool())) {
-        DrawCircleLinesV(circleToolPtr->getCenter(), circleToolPtr->getRadius(),
-                         colors[colorSelected]);
+        // DrawCircleLinesV(circleToolPtr->getCenter(),
+        // circleToolPtr->getRadius(),
+        //                  colors[colorSelected]);
+        circleToolPtr->DrawCircleMid(circleToolPtr->getCenter(),
+                                     colors[colorSelected]);
     } else if (EraserTool *eraserToolPtr =
                    dynamic_cast<EraserTool *>(toolSelect->getSelectedTool())) {
         DrawRectangleLinesEx(

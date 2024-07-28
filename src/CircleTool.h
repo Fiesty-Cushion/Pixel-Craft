@@ -19,30 +19,37 @@ private:
 
 public:
     void DrawCircleMid(raylib::Vector2 center, raylib::Color color) {
-        posX = GetMouseX();
-        posY = GetMouseY() + radius;
-        float decisionParameter = 5 / 4 - radius;
+        posX = 0;
+        posY = radius;
+
+        float decisionParameter = 1 - radius;
         float nextDecisionParameter;
-        // DrawPixel(posX, posY, color);
-        for (int i = 0; i <= 7; i++) {
+        DrawPixel(center.x + posX, center.y + posY, color);
+        DrawPixel(center.x - posX, center.y + posY, color);
+        DrawPixel(center.x + posX, center.y - posY, color);
+        DrawPixel(center.x - posX, center.y - posY, color);
+        DrawPixel(center.x + posY, center.y + posX, color);
+        DrawPixel(center.x - posY, center.y + posX, color);
+        DrawPixel(center.x + posY, center.y - posX, color);
+        DrawPixel(center.x - posY, center.y - posX, color);
+        DrawPixel(center.x, center.y + posY, color);
+        while (posX < posY) {
+            // DrawText(".",posX,posY,1,BLACK);
+            posX = posX + 1;
             if (decisionParameter < 0) {
-                posX = posX + 1;
-
-                DrawPixel(posX, posY, color);
-                DrawPixel(-posX, posY, color);
-                DrawPixel(posX, -posY, color);
-                DrawPixel(-posX, -posY, color);
                 decisionParameter = decisionParameter + 2 * (posX) + 1;
-            } else if (decisionParameter >= 0) {
-                posX = posX + 1;
+            } else {
                 posY = posY - 1;
-
-                DrawPixel(posX, posY, color);
-                DrawPixel(-posX, posY, color);
-                DrawPixel(posX, -posY, color);
-                DrawPixel(-posX, -posY, color);
-                decisionParameter = decisionParameter + 2 * (posX)-2 * posY + 1;
+                decisionParameter = decisionParameter + 2 * (posX - posY) + 1;
             }
+            DrawPixel(center.x + posX, center.y + posY, color);
+            DrawPixel(center.x - posX, center.y + posY, color);
+            DrawPixel(center.x + posX, center.y - posY, color);
+            DrawPixel(center.x - posX, center.y - posY, color);
+            DrawPixel(center.x + posY, center.y + posX, color);
+            DrawPixel(center.x - posY, center.y + posX, color);
+            DrawPixel(center.x + posY, center.y - posX, color);
+            DrawPixel(center.x - posY, center.y - posX, color);
         }
     };
 
@@ -59,9 +66,8 @@ public:
             return;
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-            DrawCircleMid(GetMousePosition(), colors[colorSelected]);
+            DrawCircleMid(initialPosition, colors[colorSelected]);
 
-            // DrawPixel(posX,posY,colors[colorSelected]);
             // DrawCircle(50,50,30,PINK);
             //  DrawCircleLinesV(getCenter(),
             //              finalPosition.Distance(this->initialPosition),
