@@ -1,38 +1,36 @@
 #pragma once
 #include "Globals.h"
-#include "raylib.h"
-#include "ToolSelect.h"
 #include "Tool.h"
+#include "raylib.h"
 
-class EraserTool : public Tool
-{
+class EraserTool : public Tool {
 private:
-  int eraserSize;
+    int eraserSize;
 
 public:
-  EraserTool()
-  {
-    eraserSize = 20.0f;
-  }
+    EraserTool() {
+        eraserSize = 20.0f;
+    }
 
-  int GetEraserSize()
-  {
-    return eraserSize;
-  };
-  void Draw() override
-  {
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || (GetGestureDetected() == GESTURE_DRAG))
-      if (mousePos.y > 50)
-      {
-        // DrawCircle(mousePos.x,mousePos.y, eraserSize,RAYWHITE);
-        DrawRectangle(mousePos.x, mousePos.y, eraserSize, eraserSize, RAYWHITE);
-      }
-  }
-  void HandleEvents() override
-  {
-    eraserSize += GetMouseWheelMove() * 5;
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-    {
+    int GetEraserSize() {
+        return eraserSize;
     };
-  }
+
+    void Draw() override {
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) ||
+            (GetGestureDetected() == GESTURE_DRAG))
+            if (mousePos.y > 50) {
+                DrawRectangle(mousePos.x - (float)eraserSize / 2,
+                              mousePos.y - (float)eraserSize / 2, eraserSize,
+                              eraserSize, RAYWHITE);
+            }
+    }
+
+    void HandleEvents() override {
+        eraserSize += GetMouseWheelMove() * 5;
+        if (eraserSize < 20.0f)
+            eraserSize = 20.0f;
+        if (eraserSize > 80.0f)
+            eraserSize = 80.0f;
+    }
 };
