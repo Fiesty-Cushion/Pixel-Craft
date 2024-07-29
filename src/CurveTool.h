@@ -135,4 +135,15 @@ public:
             isEnterPressed = true;
         }
     }
+    void Preview() override {
+        if (this->getEnterKeyStatus())
+            return;
+        for (const auto& point : this->getControlPoints()) {
+            DrawCircle(point.x, point.y, 8.0f, RED);
+        }
+
+        for (const auto& point : this->getCurvePoints()) {
+            DrawPixelV(point, colors[colorSelected]);
+        }
+    }
 };

@@ -6,15 +6,17 @@
 #include "BrushTool.h"
 #include "CircleTool.h"
 #include "CurveTool.h"
+#include "EllipseTool.h"
 #include "EraserTool.h"
 #include "Globals.h"
+#include "HypnotiserTool.h"
+#include "LineTool.h"
 #include "PencilTool.h"
 #include "Rectangle.hpp"
 #include "RectangleTool.h"
 #include "Window.hpp"
 #include "raygui.h"
 #include "raylib.h"
-
 ToolSelect::ToolSelect(raylib::Window *win) : window(win) {
 }
 
@@ -80,6 +82,14 @@ void ToolSelect::selectTool(Tools tool) {
         case TOOL_CURVE:
             currentTool = std::make_unique<CurveTool>();
             break;
+        case TOOL_LINE:
+            currentTool = std::make_unique<LineTool>();
+            break;
+        case TOOL_HYPNOTISER:
+            currentTool = std::make_unique<HypnotiserTool>();
+            break;
+        case TOOL_ELLIPSE:
+            currentTool = std::make_unique<EllipseTool>();
     }
 }
 

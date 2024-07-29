@@ -15,25 +15,10 @@ private:
 
 public:
     raylib::Rectangle getRect() {
-        if (startPos.x < endPos.x && startPos.y > endPos.y) {
-            return raylib::Rectangle(startPos.x, endPos.y,
-                                     abs(endPos.x - startPos.x),
-                                     abs(endPos.y - startPos.y));
-        } else if (startPos.x < endPos.x && startPos.y < endPos.y) {
-            return raylib::Rectangle(startPos.x, startPos.y,
-                                     abs(endPos.x - startPos.x),
-                                     abs(endPos.y - startPos.y));
-        } else if (startPos.x > endPos.x && startPos.y < endPos.y) {
-            return raylib::Rectangle(endPos.x, startPos.y,
-                                     abs(endPos.x - startPos.x),
-                                     abs(endPos.y - startPos.y));
-
-        } else {
-            return raylib::Rectangle(endPos.x, endPos.y,
-                                     abs(endPos.x - startPos.x),
-                                     abs(endPos.y - startPos.y));
-        }
-    }
+        return raylib::Rectangle{
+            fmin(startPos.x, endPos.x), fmin(startPos.y, endPos.y),
+            abs(startPos.x - endPos.x), abs(startPos.y - endPos.y)};
+    };
 
     void Draw() override {
         if (GetMouseY() < 50 && GetMouseX() < 140)
@@ -57,5 +42,10 @@ public:
         } else if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
             isMouseDraged = false;
         }
+    }
+    void Preview() override {
+        DrawRectangleLines(this->getRect().x, this->getRect().y,
+                           this->getRect().width, this->getRect().height,
+                           colors[colorSelected]);
     }
 };

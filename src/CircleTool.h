@@ -91,4 +91,7 @@ public:
             isDragging = false;
         }
     }
+    void Preview() override {
+        this->DrawCircleMid(this->getCenter(), colors[colorSelected]);
+    }
 };
