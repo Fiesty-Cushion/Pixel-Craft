@@ -33,4 +33,16 @@ public:
         if (eraserSize > 80.0f)
             eraserSize = 80.0f;
     }
+    void Preview() override {
+        DrawRectangleLinesEx(
+            {(float)GetMouseX() - (float)this->GetEraserSize() / 2 - 2,
+             (float)GetMouseY() - (float)this->GetEraserSize() / 2 - 2,
+             (float)this->GetEraserSize() + 4,
+             (float)this->GetEraserSize() + 4},
+            2.0f, GRAY);
+        DrawRectangle((float)GetMouseX() - (float)this->GetEraserSize() / 2,
+                      (float)GetMouseY() - (float)this->GetEraserSize() / 2,
+                      (float)this->GetEraserSize(),
+                      (float)this->GetEraserSize(), WHITE);
+    }
 };

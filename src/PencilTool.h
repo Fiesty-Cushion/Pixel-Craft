@@ -18,4 +18,10 @@ public:
     void HandleEvents() override {
         return;
     };
+    void Preview() override {
+        if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+            DrawCircleLines((int)mousePos.x, (int)mousePos.y, 10.0f, GRAY);
+        else
+            DrawCircle(GetMouseX(), GetMouseY(), 10.0f, colors[colorSelected]);
+    }
 };
