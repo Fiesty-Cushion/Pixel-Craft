@@ -33,7 +33,7 @@ public:
         TOOL_CIRCLE,
         TOOL_ELLIPSE,
         TOOL_TRIANGLE,
-        TOOL_COLOR_PALETTE,
+        TOOL_HYPNOTISER,
     };
 
     void selectTool(Tools tool);
@@ -47,7 +47,7 @@ private:
 
     std::array<std::string, TOOL_BOX_ICONS_COUNT> toolBoxIcons = {
         "#227#", "#31#",  "#28#",  "#29#",  "#226#", "#42#",  "#23#",  "#24#",
-        "#220#", "#224#", "#230#", "#231#", "#229#", "#232#", "#228#", "#225#"};
+        "#220#", "#224#", "#230#", "#231#", "#229#", "#232#", "#228#", "#44#"};
     raylib::Rectangle toolBoxes[TOOL_BOX_ICONS_COUNT] = {0};
 
     std::unique_ptr<Tool> currentTool;

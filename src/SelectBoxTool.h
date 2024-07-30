@@ -112,7 +112,7 @@ public:
         }
     }
 
-    void Preview() {
+    void Preview() override {
         drawDashedRectangle(getRect());
         if (selected) {
             DrawTexture(selectedTexture.texture, selectedRect.x, selectedRect.y,

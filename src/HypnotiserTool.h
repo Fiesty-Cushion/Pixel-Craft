@@ -7,7 +7,7 @@
 #include "Vector2.hpp"
 #include "raylib.h"
 
-class CircleTool : public Tool {
+class HypnotiserTool : public Tool {
 private:
     float posX;
     float posY;
@@ -63,7 +63,7 @@ public:
         if (GetMouseX() < 140 || GetMouseY() < 50)
             return;
 
-        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             DrawCircleMid(initialPosition, colors[colorSelected]);
         }
     }
@@ -84,7 +84,6 @@ public:
             isDragging = false;
         }
     }
-
     void Preview() override {
         this->DrawCircleMid(this->getCenter(), colors[colorSelected]);
     }
