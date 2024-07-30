@@ -11,6 +11,7 @@
 #include "PencilTool.h"
 #include "Rectangle.hpp"
 #include "RectangleTool.h"
+#include "SelectBoxTool.h"
 #include "Window.hpp"
 #include "raygui.h"
 #include "raylib.h"
@@ -79,6 +80,9 @@ void ToolSelect::selectTool(Tools tool) {
             break;
         case TOOL_CURVE:
             currentTool = std::make_unique<CurveTool>();
+            break;
+        case TOOL_SELECT_BOX:
+            currentTool = std::make_unique<SelectBoxTool>();
             break;
     }
 }

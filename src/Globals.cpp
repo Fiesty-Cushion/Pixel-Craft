@@ -4,6 +4,7 @@
 #include "Image.hpp"
 #include "Vector2.hpp"
 
+raylib::RenderTexture2D target;
 raylib::Vector2 mousePos;
 raylib::Image image;
 raylib::Color colors[MAX_COLORS_COUNT];

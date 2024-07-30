@@ -8,6 +8,7 @@
 #include "PencilTool.h"
 #include "RectangleTool.h"
 #include "RenderTexture.hpp"
+#include "SelectBoxTool.h"
 #include "ToolSelect.h"
 #include "Vector2.hpp"
 #include "raygui.h"
@@ -95,6 +96,9 @@ void Canvas::Draw() {
         for (const auto &point : curveToolPtr->getCurvePoints()) {
             DrawPixelV(point, colors[colorSelected]);
         }
+    } else if (SelectBoxTool *selectBoxToolPtr = dynamic_cast<SelectBoxTool *>(
+                   toolSelect->getSelectedTool())) {
+        selectBoxToolPtr->Preview();
     }
 }
 

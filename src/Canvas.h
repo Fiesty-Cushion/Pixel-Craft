@@ -1,14 +1,11 @@
 #pragma once
 
-#include "RenderTexture.hpp"
 #include "ToolSelect.h"
 #include "Window.hpp"
 
 class Canvas {
 private:
     raylib::Window *window;
-    raylib::RenderTexture2D target;
-
     ToolSelect *toolSelect;
 
 public:

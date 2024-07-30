@@ -11,7 +11,6 @@ private:
 
     raylib::Vector2 startPos = {0, 0};
     raylib::Vector2 endPos = {0, 0};
-    raylib::Vector2 tempMousePos;
 
 public:
     raylib::Rectangle getRect() {
