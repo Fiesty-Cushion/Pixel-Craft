@@ -3,6 +3,7 @@
 #include "BrushTool.h"
 #include "CircleTool.h"
 #include "CurveTool.h"
+#include "EllipseTool.h"
 #include "EraserTool.h"
 #include "Globals.h"
 #include "PencilTool.h"
@@ -49,52 +50,30 @@ void Canvas::Draw() {
         return;
     if (PencilTool *pencilToolPtr =
             dynamic_cast<PencilTool *>(toolSelect->getSelectedTool())) {
-        if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
-            DrawCircleLines((int)mousePos.x, (int)mousePos.y, 10.0f, GRAY);
-        else
-            DrawCircle(GetMouseX(), GetMouseY(), 10.0f, colors[colorSelected]);
+        pencilToolPtr->Preview();
+
     } else if (BrushTool *brushToolPtr =
                    dynamic_cast<BrushTool *>(toolSelect->getSelectedTool())) {
-        if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
-            DrawCircleLines((int)mousePos.x, (int)mousePos.y,
-                            brushToolPtr->getBrushSize(), GRAY);
-        else
-            DrawCircle(GetMouseX(), GetMouseY(), brushToolPtr->getBrushSize(),
-                       colors[colorSelected]);
+        brushToolPtr->Preview();
+
     } else if (CircleTool *circleToolPtr =
                    dynamic_cast<CircleTool *>(toolSelect->getSelectedTool())) {
-        DrawCircleLinesV(circleToolPtr->getCenter(), circleToolPtr->getRadius(),
-                         colors[colorSelected]);
+        circleToolPtr->Preview();
+
     } else if (EraserTool *eraserToolPtr =
                    dynamic_cast<EraserTool *>(toolSelect->getSelectedTool())) {
-        DrawRectangleLinesEx(
-            {(float)GetMouseX() - (float)eraserToolPtr->GetEraserSize() / 2 - 2,
-             (float)GetMouseY() - (float)eraserToolPtr->GetEraserSize() / 2 - 2,
-             (float)eraserToolPtr->GetEraserSize() + 4,
-             (float)eraserToolPtr->GetEraserSize() + 4},
-            2.0f, GRAY);
-        DrawRectangle(
-            (float)GetMouseX() - (float)eraserToolPtr->GetEraserSize() / 2,
-            (float)GetMouseY() - (float)eraserToolPtr->GetEraserSize() / 2,
-            (float)eraserToolPtr->GetEraserSize(),
-            (float)eraserToolPtr->GetEraserSize(), WHITE);
+        eraserToolPtr->Preview();
+
     } else if (RectangleTool *rectangleToolPtr = dynamic_cast<RectangleTool *>(
                    toolSelect->getSelectedTool())) {
-        DrawRectangleLines(
-            rectangleToolPtr->getRect().x, rectangleToolPtr->getRect().y,
-            rectangleToolPtr->getRect().width,
-            rectangleToolPtr->getRect().height, colors[colorSelected]);
+        rectangleToolPtr->Preview();
+
     } else if (CurveTool *curveToolPtr =
                    dynamic_cast<CurveTool *>(toolSelect->getSelectedTool())) {
-        if (curveToolPtr->getEnterKeyStatus())
-            return;
-        for (const auto &point : curveToolPtr->getControlPoints()) {
-            DrawCircle(point.x, point.y, 8.0f, RED);
-        }
-
-        for (const auto &point : curveToolPtr->getCurvePoints()) {
-            DrawPixelV(point, colors[colorSelected]);
-        }
+        curveToolPtr->Preview();
+    } else if (EllipseTool *ellipseTool =
+                   dynamic_cast<EllipseTool *>(toolSelect->getSelectedTool())) {
+        ellipseTool->Preview();
     }
 }
 

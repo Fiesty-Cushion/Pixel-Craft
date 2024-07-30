@@ -30,4 +30,13 @@ public:
     float getBrushSize() {
         return this->brushSize;
     }
+    void Preview() override {
+        if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
+            DrawCircleLines((int)mousePos.x, (int)mousePos.y,
+                            this->getBrushSize(), GRAY);
+        } else {
+            DrawCircle(GetMouseX(), GetMouseY(), this->getBrushSize(),
+                       colors[colorSelected]);
+        }
+    }
 };
